@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBox", "TimerMessageBox\TimerMessageBox.csproj", "{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBoxDemo", "TimerMessageBoxDemo\TimerMessageBoxDemo.csproj", "{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59225AB7-EA58-4BE2-A486-52771EBFDF8B}
+	EndGlobalSection
+EndGlobal
