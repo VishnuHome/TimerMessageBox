@@ -64,7 +64,7 @@ namespace NetEti.CustomControls
         /// Das INotifyPropertyChanged-Event: dient der UI zur Erkennung
         /// veränderter Properties.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Namensvergabe "Infinite" an den LifetimeMilliSeconds-Wert 0.
@@ -164,7 +164,7 @@ namespace NetEti.CustomControls
         /// Caption, Text, Buttons, Icon, Result. 
         /// </summary>
         /// <param name="owner">Besitzendes Window oder (bei Page) null.</param>
-        public TimerMessageBox(Window owner = null)
+        public TimerMessageBox(Window? owner = null)
         {
             InitializeComponent();
             if (owner != null)
@@ -173,8 +173,8 @@ namespace NetEti.CustomControls
                 this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
             this.LifeTimeMilliSeconds = INFINITE;
-            this.Caption = "Information";
-            this.Text = "";
+            this._caption = "Information";
+            this._text = "";
             this.Result = MessageBoxResult.None;
             this.Buttons = MessageBoxButtons.OK;
             this.Icon = MessageBoxIcons.Information;
@@ -206,16 +206,16 @@ namespace NetEti.CustomControls
         /// Löst bei Änderung der Property INotifyPropertyChanged aus.
         /// </summary>
         /// <param name="propertyName">Name der geänderten Property.</param>
-        protected virtual void OnPropertyChanged(string propertyName = null)
+        protected virtual void OnPropertyChanged(string? propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            PropertyChangedEventHandler? handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void SetIcon()
         {
             BitmapImage messageBoxIconImage = new BitmapImage();
-            Uri iconUri = null;
+            Uri? iconUri = null;
             this.MessageBoxIconImage.Visibility = Visibility.Visible;
             this.MessageBoxIconAnimatedImage.Visibility = Visibility.Hidden;
             switch (this.Icon)
@@ -291,7 +291,7 @@ namespace NetEti.CustomControls
             }
         }
 
-        private Uri _imageUri { get; set; }
+        private Uri? _imageUri { get; set; }
         private MessageBoxButtons _buttons;
         private MessageBoxIcons _icon;
         private string _text;
@@ -308,14 +308,14 @@ namespace NetEti.CustomControls
             }
         }
 
-        private void t_Elapsed(object sender, ElapsedEventArgs e)
+        private void t_Elapsed(object? sender, ElapsedEventArgs e)
         {
             this.CloseMessageBox();
         }
 
         private void CmdBtnOk_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Button).Visibility == Visibility.Visible;
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
         }
 
         private void CmdBtnOk_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -326,7 +326,7 @@ namespace NetEti.CustomControls
 
         private void CmdBtnYes_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Button).Visibility == Visibility.Visible;
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
         }
 
         private void CmdBtnYes_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -337,7 +337,7 @@ namespace NetEti.CustomControls
 
         private void CmdBtnNo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Button).Visibility == Visibility.Visible;
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
         }
 
         private void CmdBtnNo_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -348,7 +348,7 @@ namespace NetEti.CustomControls
 
         private void CmdBtnCancel_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Button).Visibility == Visibility.Visible;
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
         }
 
         private void CmdBtnCancel_Executed(object sender, ExecutedRoutedEventArgs e)

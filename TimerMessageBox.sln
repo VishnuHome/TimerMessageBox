@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBox", "TimerMessageBox\TimerMessageBox.csproj", "{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimerMessageBox", "TimerMessageBox\TimerMessageBox.csproj", "{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBoxDemo", "TimerMessageBoxDemo\TimerMessageBoxDemo.csproj", "{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBoxDemo", "TimerMessageBoxDemo\TimerMessageBoxDemo.csproj", "{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFC049EE-9A4D-458A-8807-3A30ED6D51DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{825D828A-A5BB-4BD8-9EB3-08BEE4FE0C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {59225AB7-EA58-4BE2-A486-52771EBFDF8B}
+		SolutionGuid = {1DAA5A30-65FA-4245-9B41-B4DE97CA4862}
 	EndGlobalSection
 EndGlobal
