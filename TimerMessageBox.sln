@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimerMessageBox", "TimerMessageBox\TimerMessageBox.csproj", "{5FDB3B1C-9245-42BF-AE2D-312370C61BE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerMessageBoxDemo", "TimerMessageBoxDemo\TimerMessageBoxDemo.csproj", "{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimerMessageBoxDemo", "TimerMessageBoxDemo\TimerMessageBoxDemo.csproj", "{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VishnuMessageBox", "VishnuMessageBox\VishnuMessageBox.csproj", "{FDD17ADB-59CA-4D1B-BEFA-E73ABE75AF44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97F23EFE-B7BE-4BFC-9F7A-942CF68563A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD17ADB-59CA-4D1B-BEFA-E73ABE75AF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD17ADB-59CA-4D1B-BEFA-E73ABE75AF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD17ADB-59CA-4D1B-BEFA-E73ABE75AF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD17ADB-59CA-4D1B-BEFA-E73ABE75AF44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,25 +26,25 @@ namespace NetEti.DemoApplications
 
         private void CmdSaveState_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            TimerMessageBox umb = new TimerMessageBox(this);
-            umb.Buttons = MessageBoxButtons.Cancel;
-            umb.Icon = MessageBoxIcons.Working;
-            umb.Caption = "Wichtige Info";
+            TimerMessageBox timerMessageBox = new TimerMessageBox(this);
+            timerMessageBox.Buttons = MessageBoxButtons.Cancel;
+            timerMessageBox.Icon = MessageBoxIcons.Working;
+            timerMessageBox.Caption = "Wichtige Info";
             //string message = "lksfdjlkfdsgjlkjglkfdjglkdjslkjfdlgkjdl"
             //    + Environment.NewLine
             //    + "poipipoipoipoipoipoipoipoipoipoipoipoip"
             //    + Environment.NewLine
             //    + "mnbmnbmnbmnbmnbmnbmbnhjkj,nb,,h,jn,bmhb";
             string message = "Der Zustand wird gespeichert,\r\nMoment bitte ...";
-            umb.Text = message;
+            timerMessageBox.Text = message;
             //umb.LifeTimeMilliSeconds = UserTimerMessageBox.INFINITE; // Default
 
             // --- Variante 1 (modal) ----------------------------------
-            /*
-            umb.LifeTimeMilliSeconds = 4000;
+            
+            timerMessageBox.LifeTimeMilliSeconds = 4000;
             (new TimerMessageBox() { Owner = this, Buttons = MessageBoxButtons.None, LifeTimeMilliSeconds = 1000,
-                Icon = MessageBoxIcons.Working, Caption = "DialogResult", Text = umb.ShowDialog().ToString()}).Show();
-            */
+                Icon = MessageBoxIcons.Working, Caption = "DialogResult", Text = timerMessageBox.ShowDialog().ToString()}).Show();
+            
             // ---------------------------------------------------------
 
             // --- Variante 2 (nicht modal) ----------------------------
@@ -53,15 +53,19 @@ namespace NetEti.DemoApplications
             // merken würde, dass überhaupt etwas passiert ist. Ansonsten immer
             // Variante 1 verwenden. Die eigentliche Verarbeitung immmer in einem
             // eigenen Thread ausführen.
+            /*
             umb.Buttons = MessageBoxButtons.None;
             umb.LifeTimeMilliSeconds = TimerMessageBox.INFINITE;
             umb.Show();
+            */
             // Simuliert die eigentliche Verarbeitung
+            /*
             Delay(10000).ContinueWith(_ =>
             {
                 // Die Verarbeitung ist beendet und schließt jetzt das Meldungsfenster.
                 umb?.CloseMessageBox();
             });
+            */
             /*
             // Achtung: für Task.Delay ist mindestens Framework 4.5 erforderlich.
             Task.Delay(10000).ContinueWith(_ =>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VishnuMessageBox": {
+      "commandName": "Project",
+      "commandLineArgs": "-Message=\"blubber#bluff\" -Caption=Warnung -MessageNewLine=# -LifeTimeMilliSeconds=10000 -Position=500,300"
+    }
+  }
+}

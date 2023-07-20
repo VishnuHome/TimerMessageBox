@@ -4,7 +4,6 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace NetEti.CustomControls
 {
@@ -81,7 +80,7 @@ namespace NetEti.CustomControls
         /// <summary>
         /// Die Fenster-Überschrift, Default: "Information".
         /// </summary>
-        public string Caption {
+        public string? Caption {
             get
             {
                 return this._caption;
@@ -99,7 +98,7 @@ namespace NetEti.CustomControls
         /// <summary>
         /// Die Meldung, Default: "".
         /// </summary>
-        public string Text {
+        public string? Text {
             get
             {
                 return this._text;
@@ -109,7 +108,45 @@ namespace NetEti.CustomControls
                 if (this._text != value)
                 {
                     this._text = value;
-                    this.OnPropertyChanged("Text");
+                    this.OnPropertyChanged(nameof(Text));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Das Icon links oben im Meldungsfenster.
+        /// </summary>
+        public string? WindowIconPath
+        {
+            get
+            {
+                return this._windowIconPath;
+            }
+            set
+            {
+                if (this._windowIconPath != value)
+                {
+                    this._windowIconPath = value;
+                    this.OnPropertyChanged(nameof(WindowIconPath));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Das Symbol zur Meldung.
+        /// </summary>
+        public Uri? ImageUri
+        {
+            get
+            {
+                return this._imageUri;
+            }
+            set
+            {
+                if (this._imageUri != value)
+                {
+                    this._imageUri = value;
+                    this.OnPropertyChanged(nameof(ImageUri));
                 }
             }
         }
@@ -118,7 +155,7 @@ namespace NetEti.CustomControls
         /// Die Buttons der UserTimerMessageBox:
         /// None, OK, Cancel, OKCancel, YesNo, YesNoCancel
         /// </summary>
-        public MessageBoxButtons Buttons
+        public MessageBoxButtons? Buttons
         {
             get
             {
@@ -135,7 +172,7 @@ namespace NetEti.CustomControls
         /// <summary>
         /// Das Icon der UserTimerMessageBox.
         /// </summary>
-        public new MessageBoxIcons Icon
+        public new MessageBoxIcons? Icon
         {
             get
             {
@@ -154,6 +191,23 @@ namespace NetEti.CustomControls
         }
 
         /// <summary>
+        /// Die Startposition des Meldungsfensters.
+        /// </summary>
+        public Point Position {
+            set
+            {
+                if (this._position != value)
+                {
+                    this._position = value;
+                    this.Left = this._position.X;
+                    this.Top = this._position.Y;
+                    this._isPositionSet = true;
+                    this.OnPropertyChanged("Position");
+                }
+            }
+        }
+
+        /// <summary>
         /// Das Ergebnis aus dieser MessageBox;
         /// None, OK, Cancel, Yes, No.
         /// </summary>
@@ -166,20 +220,16 @@ namespace NetEti.CustomControls
         /// <param name="owner">Besitzendes Window oder (bei Page) null.</param>
         public TimerMessageBox(Window? owner = null)
         {
-            InitializeComponent();
             if (owner != null)
             {
                 this.Owner = owner;
-                this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
+            InitializeComponent();
+            this.WindowIconPath = "Media/Vishnu_18.png";
             this.LifeTimeMilliSeconds = INFINITE;
-            this._caption = "Information";
-            this._text = "";
-            this.Result = MessageBoxResult.None;
-            this.Buttons = MessageBoxButtons.OK;
-            this.Icon = MessageBoxIcons.Information;
-            this.MessageBoxIconImage.Visibility = Visibility.Collapsed;
+						this.Icon = MessageBoxIcons.Information;
             this.ResizeMode = ResizeMode.NoResize;
+            this.MouseLeftButtonDown += delegate { this.DragMove(); };
         }
 
         /// <summary>
@@ -189,6 +239,23 @@ namespace NetEti.CustomControls
         /// <returns>Das MessageBoxResult: None, OK, Cancel, Yes, No</returns>
         public new MessageBoxResult ShowDialog()
         {
+            if (this.Owner != null)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
+            else
+            {
+                if (this._isPositionSet)
+                {
+                    this.WindowStartupLocation = WindowStartupLocation.Manual;
+                    this.Left = this._position.X;
+                    this.Top = this._position.Y;
+                }
+                else
+                {
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
+            }
             base.ShowDialog();
             return this.Result;
         }
@@ -214,7 +281,7 @@ namespace NetEti.CustomControls
 
         private void SetIcon()
         {
-            BitmapImage messageBoxIconImage = new BitmapImage();
+            // BitmapImage messageBoxIconImage = new BitmapImage();
             Uri? iconUri = null;
             this.MessageBoxIconImage.Visibility = Visibility.Visible;
             this.MessageBoxIconAnimatedImage.Visibility = Visibility.Hidden;
@@ -222,16 +289,16 @@ namespace NetEti.CustomControls
             {
                 case MessageBoxIcons.Hand & MessageBoxIcons.Stop & MessageBoxIcons.Error:
                     //messageBoxIconImage = Bitmap.FromHicon(SystemIcons.Hand.Handle);
-                    iconUri = new Uri("/TimerMessageBox;component/Media/process-stop-5.png", UriKind.RelativeOrAbsolute);
+                    iconUri = new Uri("Media/process-stop-5.png", UriKind.RelativeOrAbsolute);
                     break;
                 case MessageBoxIcons.Question:
-                    iconUri = new Uri("/TimerMessageBox;component/Media/dialog-question-2.png", UriKind.RelativeOrAbsolute);
+                    iconUri = new Uri("Media/dialog-question-2.png", UriKind.RelativeOrAbsolute);
                     break;
                 case MessageBoxIcons.Exclamation & MessageBoxIcons.Warning:
-                    iconUri = new Uri("/TimerMessageBox;component/Media/dialog-important-2.png", UriKind.RelativeOrAbsolute);
+                    iconUri = new Uri("Media/dialog-important-2.png", UriKind.RelativeOrAbsolute);
                     break;
                 case MessageBoxIcons.Asterisk & MessageBoxIcons.Information:
-                    iconUri = new Uri("/TimerMessageBox;component/Media/dialog-information-3.png", UriKind.RelativeOrAbsolute);
+                    iconUri = new Uri("Media/dialog-information-3.png", UriKind.RelativeOrAbsolute);
                     break;
                 case MessageBoxIcons.Working:
                     //iconUri = new Uri("/TimerMessageBox;component/Media/gears2.gif", UriKind.RelativeOrAbsolute);
@@ -292,25 +359,39 @@ namespace NetEti.CustomControls
         }
 
         private Uri? _imageUri { get; set; }
-        private MessageBoxButtons _buttons;
-        private MessageBoxIcons _icon;
-        private string _text;
-        private string _caption;
+        private MessageBoxButtons? _buttons;
+        private MessageBoxIcons? _icon;
+        private string? _text;
+        private string? _caption;
+        private Timer? _messageBoxTimer;
+        private string? _windowIconPath;
+        private Point _position;
+        private bool _isPositionSet;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (this.LifeTimeMilliSeconds > 0)
             {
-                Timer t = new Timer();
-                t.Interval = this.LifeTimeMilliSeconds;
-                t.Elapsed += new ElapsedEventHandler(t_Elapsed);
-                t.Start();
+                _messageBoxTimer = new Timer();
+                _messageBoxTimer.Interval = this.LifeTimeMilliSeconds;
+                _messageBoxTimer.Elapsed += new ElapsedEventHandler(t_Elapsed);
+                _messageBoxTimer.Start();
             }
         }
 
         private void t_Elapsed(object? sender, ElapsedEventArgs e)
         {
             this.CloseMessageBox();
+        }
+
+        private void CmdBtnCopy_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
+        }
+
+        private void CmdBtnCopy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Clipboard.SetText(this.MessageTextBlock.Text);
         }
 
         private void CmdBtnOk_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -355,6 +436,11 @@ namespace NetEti.CustomControls
         {
             this.Result = MessageBoxResult.Cancel;
             this.CloseMessageBox();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            this._messageBoxTimer?.Dispose();
         }
 
         /*

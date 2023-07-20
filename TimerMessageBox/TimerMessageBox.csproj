@@ -12,24 +12,31 @@
     <Company>NetEti</Company>
     <Description>Assembly mit einer MessageBox mit zusätzlichem Timer für Verlaufsmeldungen, die automatisch schließen</Description>
     <Copyright>Copyright © $(Authors) 2019-2023</Copyright>
-    <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.0.0</FileVersion>
+    <AssemblyVersion>7.0.1.1</AssemblyVersion>
+    <FileVersion>7.0.1.1</FileVersion>
     <PackageTags>NetEti Custom Control MessageBox Timer Close</PackageTags>
   </PropertyGroup>
 
  	<PropertyGroup>
    	<VishnuRoot>$(ProjectDir)../../..</VishnuRoot>
    	<AssemblyRoot>$(VishnuRoot)/ReadyBin/Assemblies</AssemblyRoot>
+   	<ApplicationIcon>Vishnu_Info.ico</ApplicationIcon>
 	</PropertyGroup>
 	<Import Project="$(ProjectDir)../../AddOn/proj/*" Condition="exists('$(ProjectDir)../../AddOn/proj')" />
 
   <ItemGroup>
+    <None Remove="dialog-information-3.png" />
     <None Remove="Media\dialog-important-2.png" />
     <None Remove="Media\dialog-information-3.png" />
     <None Remove="Media\dialog-question-2.png" />
     <None Remove="Media\gears2.gif" />
     <None Remove="Media\process-stop-5.png" />
+    <None Remove="Media\Vishnu_18.png" />
     <None Remove="Media\Vishnu_multi.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Vishnu_Info.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,12 +44,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Media\dialog-important-2.png" />
-    <Resource Include="Media\dialog-information-3.png" />
-    <Resource Include="Media\dialog-question-2.png" />
+    <Resource Include="dialog-information-3.png" />
+    <Resource Include="Media\dialog-important-2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\dialog-information-3.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\dialog-question-2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Media\gears2.gif" />
-    <Resource Include="Media\process-stop-5.png" />
-    <Resource Include="Media\Vishnu_multi.ico" />
+    <Resource Include="Media\process-stop-5.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Vishnu_18.png" />
+    <Resource Include="Media\Vishnu_multi.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

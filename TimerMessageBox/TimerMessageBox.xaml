@@ -8,62 +8,108 @@
         gif:ImageBehavior.AnimateInDesignMode="True"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="{Binding Caption}" Height="150" Width="200" Loaded="Window_Loaded"
-        MinWidth="200" MinHeight="100" WindowStartupLocation="CenterScreen"
-        SizeToContent="WidthAndHeight" Icon="Media/Vishnu_multi.ico"
-        >
-    <Window.Style>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="WindowStyle" Value="ToolWindow"/>
-            <Setter Property="BorderBrush" Value="Green"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-    </Window.Style>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Name="MessageBoxIconImage" Grid.Column="0" Height="64px" Width="64px" Source="{Binding Path=ImageUri}"
+        Height="150" Width="200" Loaded="Window_Loaded"
+        MinWidth="200" MinHeight="100" MaxWidth="540" WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight" Closing="Window_Closing"
+        Background="Transparent" AllowsTransparency="True" WindowStyle="None">
+    <Border Background="White" CornerRadius="10, 10, 10, 10" BorderThickness="2" BorderBrush="DarkGreen">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Name="WindowIconImage" Grid.Column="0" Height="18px" Width="18px"
+                   Source="{Binding Path=WindowIconPath}"
+                   VerticalAlignment="Top" Margin="5,5,0,0"/>
+                <TextBlock Grid.Column="1" Name="MessageBoxCaption" 
+                       Text="{Binding Path=Caption, FallbackValue='Unnamed'}" Margin="10,4,0,0"
+                       FontFamily="Calibri" FontSize="16" TextWrapping="WrapWithOverflow"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Name="MessageBoxIconImage" Grid.Column="0" Height="48px" Width="48px"
+                   Source="{Binding Path=ImageUri}"
                    VerticalAlignment="Top" Margin="20,20,10,10"/>
-            <Image gif:ImageBehavior.AnimatedSource="Media/gears2.gif" Name="MessageBoxIconAnimatedImage" 
-                   Grid.Column="0" Height="64px" Width="64px"
+                <Image gif:ImageBehavior.AnimatedSource="Media/gears2.gif" Name="MessageBoxIconAnimatedImage" 
+                   Grid.Column="0" Height="48px" Width="48px"
                    VerticalAlignment="Top" Margin="20,20,10,10"/>
-            <TextBlock Grid.Column="1" Name="MessageTextBlock" Text="{Binding Text}" Margin="20,20,20,20"
-                       FontFamily="Calibri" FontSize="16"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <DockPanel Name="ButtonsPanel" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button x:Name="BtnOk" Content="Ok" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
-                    Command="ApplicationCommands.New">
-                    <Button.CommandBindings>
-                        <CommandBinding Command="New" Executed="CmdBtnOk_Executed" CanExecute="CmdBtnOk_CanExecute" />
-                    </Button.CommandBindings>
-                </Button>
-                <Button x:Name="BtnYes" Content="Ja" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" x:Name="BtnCopyToClipboard" Content="Copy" HorizontalAlignment="Right" Margin="0,0,20,0"
+                            VerticalAlignment="Bottom" FontSize="8" Background="White"
+                            Command="ApplicationCommands.New">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.CommandBindings>
+                            <CommandBinding Command="New" Executed="CmdBtnCopy_Executed" CanExecute="CmdBtnCopy_CanExecute" />
+                        </Button.CommandBindings>
+                    </Button>
+                    <Border Grid.Row="1" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Stretch"
+                            Margin="20,0,20,20">
+                        <TextBlock Name="MessageTextBlock" Grid.Row="1" Text="{Binding Text}"
+                                   FontFamily="Calibri" FontSize="16" TextWrapping="WrapWithOverflow"/>
+                    </Border>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <DockPanel Name="ButtonsPanel" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Button x:Name="BtnOk" Content="Ok" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
+                            Command="ApplicationCommands.New">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.CommandBindings>
+                            <CommandBinding Command="New" Executed="CmdBtnOk_Executed" CanExecute="CmdBtnOk_CanExecute" />
+                        </Button.CommandBindings>
+                    </Button>
+                    <Button x:Name="BtnYes" Content="Ja" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
                      Command="ApplicationCommands.New">
-                    <Button.CommandBindings>
-                        <CommandBinding Command="New" Executed="CmdBtnYes_Executed" CanExecute="CmdBtnYes_CanExecute" />
-                    </Button.CommandBindings>
-                </Button>
-                <Button x:Name="BtnNo" Content="Nein" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
+                        <Button.CommandBindings>
+                            <CommandBinding Command="New" Executed="CmdBtnYes_Executed" CanExecute="CmdBtnYes_CanExecute" />
+                        </Button.CommandBindings>
+                    </Button>
+                    <Button x:Name="BtnNo" Content="Nein" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
                     Command="ApplicationCommands.New">
-                    <Button.CommandBindings>
-                        <CommandBinding Command="New" Executed="CmdBtnNo_Executed" CanExecute="CmdBtnNo_CanExecute" />
-                    </Button.CommandBindings>
-                </Button>
-                <Button x:Name="BtnCancel" Content="Abbrechen" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.CommandBindings>
+                            <CommandBinding Command="New" Executed="CmdBtnNo_Executed" CanExecute="CmdBtnNo_CanExecute" />
+                        </Button.CommandBindings>
+                    </Button>
+                    <Button x:Name="BtnCancel" Content="Abbrechen" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"
                     Command="ApplicationCommands.New">
-                    <Button.CommandBindings>
-                        <CommandBinding Command="New" Executed="CmdBtnCancel_Executed" CanExecute="CmdBtnCancel_CanExecute" />
-                    </Button.CommandBindings>
-                </Button>
-            </DockPanel>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.CommandBindings>
+                            <CommandBinding Command="New" Executed="CmdBtnCancel_Executed" CanExecute="CmdBtnCancel_CanExecute" />
+                        </Button.CommandBindings>
+                    </Button>
+                </DockPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </Window>
