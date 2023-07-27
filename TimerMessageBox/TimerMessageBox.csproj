@@ -12,8 +12,8 @@
     <Company>NetEti</Company>
     <Description>Assembly mit einer MessageBox mit zusätzlichem Timer für Verlaufsmeldungen, die automatisch schließen</Description>
     <Copyright>Copyright © $(Authors) 2019-2023</Copyright>
-    <AssemblyVersion>7.0.1.1</AssemblyVersion>
-    <FileVersion>7.0.1.1</FileVersion>
+    <AssemblyVersion>7.0.1.2</AssemblyVersion>
+    <FileVersion>7.0.1.2</FileVersion>
     <PackageTags>NetEti Custom Control MessageBox Timer Close</PackageTags>
   </PropertyGroup>
 
@@ -26,10 +26,12 @@
 
   <ItemGroup>
     <None Remove="dialog-information-3.png" />
+    <None Remove="Media\close.png" />
     <None Remove="Media\dialog-important-2.png" />
     <None Remove="Media\dialog-information-3.png" />
     <None Remove="Media\dialog-question-2.png" />
     <None Remove="Media\gears2.gif" />
+    <None Remove="Media\minimize.png" />
     <None Remove="Media\process-stop-5.png" />
     <None Remove="Media\Vishnu_18.png" />
     <None Remove="Media\Vishnu_multi.ico" />
@@ -44,7 +46,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="NetEti.ZoomBox">
+      <HintPath>..\..\..\ReadyBin\Assemblies\NetEti.ZoomBox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+	<Choose>
+  	<When Condition="!('$(TF_BUILD)' == 'true' Or '$(GITHUB_ACTIONS)' == 'true' Or '$(NETETI_CIB)' == 'true')">
+		  <ItemGroup>
+		    <Reference Include="NetEti.ZoomBox">
+		      <HintPath>$(AssemblyRoot)/NetEti.ZoomBox.dll</HintPath>
+		    </Reference>
+		  </ItemGroup>
+  	</When>
+    <Otherwise>
+		  <ItemGroup>
+		    <PackageReference Include="NetEti.ZoomBox" Version="1.0.0" />
+		  </ItemGroup>
+    </Otherwise>
+	</Choose>
+
+  <ItemGroup>
     <Resource Include="dialog-information-3.png" />
+    <Resource Include="Media\close.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Media\dialog-important-2.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -55,6 +81,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\gears2.gif" />
+    <Resource Include="Media\minimize.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Media\process-stop-5.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -2,7 +2,7 @@
   "profiles": {
     "VishnuMessageBox": {
       "commandName": "Project",
-      "commandLineArgs": "-Message=\"blubber#bluff\" -Caption=Warnung -MessageNewLine=# -LifeTimeMilliSeconds=10000 -Position=500,300"
+      "commandLineArgs": "-Message=\"this is a very long Text without any line-breaks and an example #for messages, that kill my message-box.\" -Caption=Warnung -MessageNewLine=# -LifeTimeMilliSeconds=0 -Position=500,300"
     }
   }
 }

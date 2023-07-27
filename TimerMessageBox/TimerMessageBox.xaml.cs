@@ -229,7 +229,7 @@ namespace NetEti.CustomControls
             this.LifeTimeMilliSeconds = INFINITE;
 						this.Icon = MessageBoxIcons.Information;
             this.ResizeMode = ResizeMode.NoResize;
-            this.MouseLeftButtonDown += delegate { this.DragMove(); };
+            // this.MouseLeftButtonDown += delegate { this.DragMove(); };
         }
 
         /// <summary>
@@ -392,6 +392,26 @@ namespace NetEti.CustomControls
         private void CmdBtnCopy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Clipboard.SetText(this.MessageTextBlock.Text);
+        }
+
+        private void CmdBtnMinimize_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
+        }
+
+        private void CmdBtnMinimize_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void CmdBtnClose_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (sender as Button)?.Visibility == Visibility.Visible;
+        }
+
+        private void CmdBtnClose_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
         }
 
         private void CmdBtnOk_CanExecute(object sender, CanExecuteRoutedEventArgs e)

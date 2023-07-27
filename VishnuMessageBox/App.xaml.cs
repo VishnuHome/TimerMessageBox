@@ -14,6 +14,12 @@ namespace VishnuMessageBox
     public partial class App : Application
     {
         /// <summary>
+        /// Wenn keine Zeilenumbrüche mitgegeben werden, wird als Maximalbreite
+        /// für das Meldungsfenster DEFAULTMAXWIDTH Pixel angesetzt.
+        /// </summary>
+        public const int DEFAULTMAXWIDTH = 600;
+
+        /// <summary>
         /// Wird beim Start der Anwendung durchlaufen.
         /// </summary>
         /// <param name="e"></param>
@@ -80,6 +86,7 @@ namespace VishnuMessageBox
             else
             {
                 messageLines = new string[1] { msg };
+                timerMessageBox.MaxWidth = DEFAULTMAXWIDTH;
             }
             for (int i = 0; i < messageLines.Count(); i++)
             {
@@ -128,14 +135,11 @@ namespace VishnuMessageBox
                     timerMessageBox.Position = new Point(posX, posY);
                 }
             }
-
             timerMessageBox.Text = message;
             timerMessageBox.Buttons = messageBoxButton;
             timerMessageBox.Icon = messageBoxIcon;
             timerMessageBox.LifeTimeMilliSeconds = lifeTimeMilliSeconds;
             timerMessageBox.Caption = caption;
-
-
         }
 
         private static T Die<T>(string? message)
