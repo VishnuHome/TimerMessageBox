@@ -2,6 +2,7 @@
 using NetEti.CustomControls;
 using System;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -51,19 +52,11 @@ namespace VishnuMessageBox
             MessageBoxIcons messageBoxIcon = MessageBoxIcons.None;
             MessageBoxButtons messageBoxButton = MessageBoxButtons.None;
             int lifeTimeMilliSeconds = TimerMessageBox.INFINITE;
-            string caption = string.Empty;
+            string? tmpStr = commandLineAccess.GetStringValue("EscalationCounter", "0");
+            bool isResetting = Int32.TryParse(tmpStr, out int escalationCounter) && escalationCounter < 0;
 
-            string? tmpStr = commandLineAccess.GetStringValue("Vishnu.EscalationCounter", "1");
-            if (!Int32.TryParse(tmpStr, out int escalationCounter)) Die<string>("Der EscalationCounter ist nicht numerisch!");
-            caption = commandLineAccess.GetStringValue("Caption", "Information") ?? "Information";
+            string? caption = commandLineAccess.GetStringValue("Caption", "Information") ?? "Information";
             StringBuilder sb = new StringBuilder();
-            string delim = "";
-            if (escalationCounter < 0)
-            {
-                caption = "Entwarnung";
-                sb.Append("Das Problem ist behoben. Die ursprüngliche Meldung war:");
-                delim = Environment.NewLine;
-            }
 
             // tmpStr = commandLineAccess.GetStringValue("Vishnu.TreeInfo", "");
             // tmpStr = commandLineAccess.GetStringValue("Vishnu.NodeInfo", "");
@@ -75,7 +68,7 @@ namespace VishnuMessageBox
             }
 
             string msg = commandLineAccess.GetStringValue("Message", null)
-                ?? Die<string>("Es muss ein Meldungstext mitgegeben werden.");
+                ?? Die<string>("Es muss ein Meldungstext mitgegeben werden.", commandLineAccess.CommandLine);
 
             tmpStr = commandLineAccess.GetStringValue("MessageNewLine", null);
             string[] messageLines;
@@ -88,12 +81,20 @@ namespace VishnuMessageBox
                 messageLines = new string[1] { msg };
                 timerMessageBox.MaxWidth = DEFAULTMAXWIDTH;
             }
+            string delim = "";
             for (int i = 0; i < messageLines.Count(); i++)
             {
                 sb.Append(delim + messageLines[i]);
                 delim = Environment.NewLine;
             }
             string message = sb.ToString();
+            if (isResetting)
+            {
+                message = "Das Problem ist behoben. Die ursprüngliche Meldung war:"
+                        + Environment.NewLine
+                        + message;
+            }
+
             messageBoxIcon = MessageBoxIcons.Information;
             if (caption.ToUpper().Contains("ERROR") || caption.ToUpper().Contains("FEHLER")
                 || caption.ToUpper().Contains("EXCEPTION"))
@@ -104,7 +105,6 @@ namespace VishnuMessageBox
             {
                 if (caption.ToUpper().StartsWith("WARN") == true)
                 {
-                    caption = "Warnung";
                     messageBoxIcon = MessageBoxIcons.Exclamation;
                 }
             }
@@ -115,16 +115,24 @@ namespace VishnuMessageBox
                 messageBoxButton = MessageBoxButtons.Cancel;
             }
 
+            if (isResetting)
+            {
+                messageBoxIcon = MessageBoxIcons.Information;
+                caption = "Entwarnung";
+            }
+
             tmpStr = commandLineAccess.GetStringValue("Position", null);
             if (tmpStr != null)
             {
                 string[] posStrings = Regex.Split(tmpStr, @"[;,|:]");
                 if (posStrings.Length == 2)
                 {
-                    if (!Double.TryParse(posStrings[0].Trim(), out double posX)) Die<string>("Die X-Position nicht numerisch!");
-                    if (!Double.TryParse(posStrings[1].Trim(), out double posY)) Die<string>("Die Y-Position nicht numerisch!");
-                    double maxX = System.Windows.SystemParameters.VirtualScreenWidth - 210;
-                    double maxY = System.Windows.SystemParameters.VirtualScreenHeight - 180;
+                    if (!Double.TryParse(posStrings[0].Trim(), out double posX))
+                        Die<string>("Die X-Position nicht numerisch!", commandLineAccess.CommandLine);
+                    if (!Double.TryParse(posStrings[1].Trim(), out double posY))
+                        Die<string>("Die Y-Position nicht numerisch!", commandLineAccess.CommandLine);
+                    double maxX = SystemParameters.VirtualScreenWidth - 210;
+                    double maxY = SystemParameters.VirtualScreenHeight - 180;
                     double minX = 0;
                     double minY = 0;
                     if (posX > maxX) posX = maxX;
@@ -142,15 +150,33 @@ namespace VishnuMessageBox
             timerMessageBox.Caption = caption;
         }
 
-        private static T Die<T>(string? message)
+        private static T Die<T>(string? message, string? commandLine = null)
         {
-            string usage = "Parameter: "
-                + "[Vishnu.EscalationCounter=<Aufruf-Zähler>] [Vishnu.TreeInfo=<Tree-Info>] [Vishnu.NodeInfo=<Node-Info>]"
-                + " Message=<Nachricht>" + " [Caption=<Überschrift>] + [LifeTimeMilliSeconds=<Zeit bis zum Meldungsende>]"
-                + " [MessageNewLine=<NewLine-Kennung>] [Position=X;Y]"
-                + Environment.NewLine + "Beispiel:  Vishnu.EscalationCounter=-1 Vishnu.TreeInfo=\"Tree 1\" Vishnu.NodeInfo=\"Root\""
-                + " Message=\"Server-1 Exception: # Da ist was schiefgelaufen # Connection-Error...\" Caption=\"SQL-Exception\""
-                + " MessageNewLine=\"#\"";
+            string usage = "Syntax:"
+                + Environment.NewLine
+                + "\t-Message=<Nachricht>"
+                + Environment.NewLine
+                + "\t[-Caption=<Überschrift>]"
+                + Environment.NewLine
+                + "\t[-LifeTimeMilliSeconds=<Zeit bis zum Meldungsende>]"
+                + Environment.NewLine
+                + "\t[-MessageNewLine=<NewLine-Kennung>]"
+                + Environment.NewLine
+                + "\t[-Position=X;Y]"
+                + Environment.NewLine
+                + "\t[-EscalationCounter={-n;+n} (negativ: Ursache behoben)]"
+                + Environment.NewLine
+                + "Beispiel:"
+                + Environment.NewLine
+                + "\t-Message=\"Server-1:#Zugriffsproblem#Connection-Error...\""
+                + Environment.NewLine
+                + "\t-Caption=\"SQL-Exception\""
+                + Environment.NewLine
+                + "\t-MessageNewLine=\"#\"";
+            if (commandLine != null)
+            {
+                usage = "Kommandozeile: " + commandLine + Environment.NewLine + usage;
+            }
             MessageBox.Show(message + Environment.NewLine + usage);
             throw new ArgumentException(message + Environment.NewLine + usage);
         }
