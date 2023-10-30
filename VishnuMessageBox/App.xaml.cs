@@ -2,7 +2,6 @@
 using NetEti.CustomControls;
 using System;
 using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
