@@ -248,8 +248,6 @@ namespace NetEti.CustomControls
                 if (this._isPositionSet)
                 {
                     this.WindowStartupLocation = WindowStartupLocation.Manual;
-                    this.Left = this._position.X;
-                    this.Top = this._position.Y;
                 }
                 else
                 {
@@ -370,6 +368,24 @@ namespace NetEti.CustomControls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.WindowStartupLocation == WindowStartupLocation.Manual)
+            {
+                // Rufe Measure und Arrange auf, um die gewünschte Größe zu berechnen
+                Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                Arrange(new Rect(0, 0, DesiredSize.Width, DesiredSize.Height));
+
+                // Erhalte die gewünschte Größe aus der DesiredSize-Eigenschaft
+                double desiredWidth = DesiredSize.Width;
+                double desiredHeight = DesiredSize.Height;
+
+                double desiredLeft = this._position.X - desiredWidth / 2.0;
+                desiredLeft = desiredLeft < 0 ? 0 : desiredLeft;
+                double desiredTop = this._position.Y - desiredHeight / 2.0;
+                desiredTop = desiredTop < 0 ? 0 : desiredTop;
+
+                this.Left = desiredLeft;
+                this.Top = desiredTop;
+            }
             if (this.LifeTimeMilliSeconds > 0)
             {
                 _messageBoxTimer = new Timer();

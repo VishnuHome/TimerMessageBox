@@ -2,7 +2,7 @@
   "profiles": {
     "VishnuMessageBox": {
       "commandName": "Project",
-      "commandLineArgs": "-Message=\"this is a very long Text without any line-breaks and an example #for messages, that kill my message-box.\" -Caption=Warnung -MessageNewLine=# -LifeTimeMilliSeconds=10000 -Position=500,300 -EscalationCounter=-1 -ResolvedPrefix=\"No longer valid:\""
+      "commandLineArgs": "-Vishnu.TreeInfo=\"Tree 1\" -Vishnu.NodeInfo=\"Datenbank_Server1\" -Position=\"2191,99;411,76\" -EscalationCounter=1 -Message=\"13.01.2024 11.18.55: Datenbank_Server1 Exception von Datenbank_Server1 in Datenbank_Server1#TestException!\" -Caption=\"SQL-Fehler\" -MessageNewLine=#"
     }
   }
 }

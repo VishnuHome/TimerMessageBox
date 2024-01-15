@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace VishnuMessageBox
 {
@@ -27,6 +28,10 @@ namespace VishnuMessageBox
         {
             TimerMessageBox timerMessageBox = new();
             EvaluateParametersOrDie(e.Args, timerMessageBox);
+
+            // Setze SizeToContent auf Manual, um die manuelle Kontrolle über die Größe zu haben
+            // timerMessageBox.SizeToContent = SizeToContent.Manual;
+
             switch (timerMessageBox.ShowDialog())
             {
                 case System.Windows.MessageBoxResult.None:
@@ -126,22 +131,13 @@ namespace VishnuMessageBox
             tmpStr = commandLineAccess.GetStringValue("Position", null);
             if (tmpStr != null)
             {
-                string[] posStrings = Regex.Split(tmpStr, @"[;,|:]");
+                string[] posStrings = Regex.Split(tmpStr, @"[;|:]");
                 if (posStrings.Length == 2)
                 {
                     if (!Double.TryParse(posStrings[0].Trim(), out double posX))
                         Die<string>("Die X-Position nicht numerisch!", commandLineAccess.CommandLine);
                     if (!Double.TryParse(posStrings[1].Trim(), out double posY))
                         Die<string>("Die Y-Position nicht numerisch!", commandLineAccess.CommandLine);
-                    double maxX = SystemParameters.VirtualScreenWidth - 210;
-                    double maxY = SystemParameters.VirtualScreenHeight - 180;
-                    double minX = 0;
-                    double minY = 0;
-                    if (posX > maxX) posX = maxX;
-                    if (posX < minX) posX = minX;
-                    if (posY > maxY) posY = maxY;
-                    if (posY < minY) posY = minY;
-
                     timerMessageBox.Position = new Point(posX, posY);
                 }
             }

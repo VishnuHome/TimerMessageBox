@@ -12,10 +12,14 @@
     <Company>NetEti</Company>
     <Description>Assembly mit einer MessageBox mit zusätzlichem Timer für Verlaufsmeldungen, die automatisch schließen</Description>
     <Copyright>Copyright © $(Authors) 2019-2023</Copyright>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
-    <FileVersion>8.0.0.0</FileVersion>
+    <AssemblyVersion>8.0.4.0</AssemblyVersion>
+    <FileVersion>8.0.4.0</FileVersion>
     <PackageTags>NetEti Custom Control MessageBox Timer Close</PackageTags>
   </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+	</ItemGroup>
 
  	<PropertyGroup>
    	<VishnuRoot>$(ProjectDir)../../..</VishnuRoot>
