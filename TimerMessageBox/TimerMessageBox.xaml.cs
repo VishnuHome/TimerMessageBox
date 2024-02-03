@@ -233,6 +233,29 @@ namespace NetEti.CustomControls
         }
 
         /// <summary>
+        /// Zeigt die TimerMessageBox modal an.
+        /// </summary>
+        public new void Show()
+        {
+            if (this.Owner != null)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
+            else
+            {
+                if (this._isPositionSet)
+                {
+                    this.WindowStartupLocation = WindowStartupLocation.Manual;
+                }
+                else
+                {
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
+            }
+            base.Show();
+        }
+
+        /// <summary>
         /// Zeigt die TimerMessageBox modal an und gibt ein MessageBoxResult zurück
         /// (None, OK, Cancel, Yes, No).
         /// </summary>
