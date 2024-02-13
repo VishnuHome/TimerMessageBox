@@ -22,7 +22,7 @@
    	<AssemblyRoot>$(VishnuRoot)/ReadyBin/Assemblies</AssemblyRoot>
     <UserAssemblyRoot>$(ProjectDir)../../../ReadyBin/UserAssemblies</UserAssemblyRoot>
     <RootNamespace>NetEti.CustomControls</RootNamespace>
-    <ApplicationIcon>Vishnu_Info.ico</ApplicationIcon>
+    <ApplicationIcon>Vishnu_Info_128.ico</ApplicationIcon>
 	</PropertyGroup>
 	<Import Project="$(ProjectDir)../../AddOn/proj/*" Condition="exists('$(ProjectDir)../../AddOn/proj')" />
 
@@ -46,7 +46,7 @@
 	</Choose>
 
 	<ItemGroup>
-	  <Content Include="Vishnu_Info.ico" />
+	  <Content Include="Vishnu_Info_128.ico" />
 	</ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace NetEti.CustomControls
 {
@@ -56,6 +58,8 @@ namespace NetEti.CustomControls
 
     /// <summary>
     /// Interaktionslogik für TimerMessageBox.xaml
+    /// 13.02.2024 Erik Nagel: Windows.DragMove bei Erhaltung der Reaktionsfähigkeit anderer Controls (Buttons)
+    ///                        implementiert (DelayedDragMove).
     /// </summary>
     public partial class TimerMessageBox : Window, INotifyPropertyChanged
     {
@@ -229,7 +233,8 @@ namespace NetEti.CustomControls
             this.LifeTimeMilliSeconds = INFINITE;
 						this.Icon = MessageBoxIcons.Information;
             this.ResizeMode = ResizeMode.NoResize;
-            // this.MouseLeftButtonDown += delegate { this.DragMove(); };
+            // this.PreviewMouseLeftButtonDown += delegate { this.DragMove(); };
+            this.PreviewMouseLeftButtonDown += this.previewMouseLeftButtonDown;
         }
 
         /// <summary>
@@ -499,6 +504,7 @@ namespace NetEti.CustomControls
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            this.PreviewMouseLeftButtonDown -= this.previewMouseLeftButtonDown;
             this._messageBoxTimer?.Dispose();
         }
 
@@ -519,5 +525,49 @@ namespace NetEti.CustomControls
             return bitmapImage;
         }
         */
+
+        /// <summary>
+        /// Linke Maustaste: 
+        ///   dient zum Ziehen des Meldungsfensters.
+        /// </summary>
+        /// <param name="sender">Element, in dem das Event zuerst auftritt.</param>
+        /// <param name="e">Weitergehende Informationen zum Event.</param>
+        private void previewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            /*
+            if (((Keyboard.Modifiers & ModifierKeys.Alt) > 0)
+                || ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+                || ((Keyboard.Modifiers & ModifierKeys.Shift) > 0))
+            {
+                return; // Let it be free for others.
+            }
+            */
+
+            // this.DragMove();
+            // Window.DragMove() blockiert Mausklicks auf Buttons in Controls in
+            // anderen Assemblies (UserControl, z.B. ZoomBox).
+            // Deshalb muss DragMove() verzögert gestartet werden, um Buttons noch
+            // die Möglichkeit zu geben, vorher zu reagieren.
+            this.DelayedDragMove();
+        }
+
+        private void DelayedDragMove()
+        {
+            Task.Run(new Action(() => {
+                Task.Delay(200).Wait(); // Important: if the application doesn't react on mouseclicks any longer,
+                                        // set this delay to a higher value (100 won't work).
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    try
+                    {
+                        if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
+                        {
+                            this.DragMove();
+                        }
+                    } catch (InvalidOperationException) { }
+                }), DispatcherPriority.Send);
+            }));
+        }
+
     }
 }

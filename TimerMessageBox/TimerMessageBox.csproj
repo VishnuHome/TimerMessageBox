@@ -24,7 +24,7 @@
  	<PropertyGroup>
    	<VishnuRoot>$(ProjectDir)../../..</VishnuRoot>
    	<AssemblyRoot>$(VishnuRoot)/ReadyBin/Assemblies</AssemblyRoot>
-   	<ApplicationIcon>Vishnu_Info.ico</ApplicationIcon>
+   	<ApplicationIcon>Vishnu_Info_128.ico</ApplicationIcon>
 	</PropertyGroup>
 	<Import Project="$(ProjectDir)../../AddOn/proj/*" Condition="exists('$(ProjectDir)../../AddOn/proj')" />
 
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Vishnu_Info.ico" />
+    <Content Include="Vishnu_Info_128.ico" />
   </ItemGroup>
 
   <ItemGroup>
