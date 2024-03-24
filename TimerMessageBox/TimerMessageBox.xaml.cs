@@ -231,8 +231,9 @@ namespace NetEti.CustomControls
             InitializeComponent();
             this.WindowIconPath = "Media/Vishnu_18.png";
             this.LifeTimeMilliSeconds = INFINITE;
-						this.Icon = MessageBoxIcons.Information;
+			this.Icon = MessageBoxIcons.Information;
             this.ResizeMode = ResizeMode.NoResize;
+            this._position = new(-1, -1);
             // this.PreviewMouseLeftButtonDown += delegate { this.DragMove(); };
             this.PreviewMouseLeftButtonDown += this.previewMouseLeftButtonDown;
         }
@@ -257,6 +258,7 @@ namespace NetEti.CustomControls
                     this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
             }
+            // MessageBox.Show($"bin hier TimerMessageBox.Show: {this.LifeTimeMilliSeconds}"); // 03.03.2024 Nagel+- DEBUG
             base.Show();
         }
 
@@ -282,6 +284,7 @@ namespace NetEti.CustomControls
                     this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
             }
+            // MessageBox.Show($"bin hier TimerMessageBox.ShowDialog: {this.LifeTimeMilliSeconds}"); // 03.03.2024 Nagel+- DEBUG
             base.ShowDialog();
             return this.Result;
         }
@@ -292,7 +295,12 @@ namespace NetEti.CustomControls
         /// <returns>Das MessageBoxResult: None, OK, Cancel, Yes, No</returns>
         public void CloseMessageBox()
         {
-            this.Dispatcher.Invoke(new Action(() => { this.Close(); }));
+            this.Dispatcher.Invoke(new Action(() => 
+                {
+                    // MessageBox.Show($"TimerMessageBox vor Close"); // 03.03.2024 Nagel+- DEBUG
+                    this.Close();
+                }
+            ));
         }
 
         /// <summary>
@@ -425,6 +433,7 @@ namespace NetEti.CustomControls
 
         private void t_Elapsed(object? sender, ElapsedEventArgs e)
         {
+            this._messageBoxTimer?.Stop();
             this.CloseMessageBox();
         }
 
@@ -504,8 +513,8 @@ namespace NetEti.CustomControls
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            this.PreviewMouseLeftButtonDown -= this.previewMouseLeftButtonDown;
-            this._messageBoxTimer?.Dispose();
+            //this.PreviewMouseLeftButtonDown -= this.previewMouseLeftButtonDown;
+            //this._messageBoxTimer?.Dispose();
         }
 
         /*

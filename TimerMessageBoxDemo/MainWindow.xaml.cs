@@ -30,21 +30,35 @@ namespace NetEti.DemoApplications
             timerMessageBox.Buttons = MessageBoxButtons.Cancel;
             timerMessageBox.Icon = MessageBoxIcons.Working;
             timerMessageBox.Caption = "Wichtige Info";
-            //string message = "lksfdjlkfdsgjlkjglkfdjglkdjslkjfdlgkjdl"
-            //    + Environment.NewLine
-            //    + "poipipoipoipoipoipoipoipoipoipoipoipoip"
-            //    + Environment.NewLine
-            //    + "mnbmnbmnbmnbmnbmnbmbnhjkj,nb,,h,jn,bmhb";
-            string message = "Der Zustand wird gespeichert,\r\nMoment bitte ...";
-            timerMessageBox.Text = message;
-            //umb.LifeTimeMilliSeconds = UserTimerMessageBox.INFINITE; // Default
+            timerMessageBox.Text = "Der Zustand wird gespeichert,\r\nMoment bitte ...";
 
             // --- Variante 1 (modal) ----------------------------------
-            
             timerMessageBox.LifeTimeMilliSeconds = 4000;
-            (new TimerMessageBox() { Owner = this, Buttons = MessageBoxButtons.None, LifeTimeMilliSeconds = 1000,
-                Icon = MessageBoxIcons.Working, Caption = "DialogResult", Text = timerMessageBox.ShowDialog().ToString()}).Show();
-            
+            MessageBoxResult firstDialogResult = timerMessageBox.ShowDialog();
+
+
+            // Zweite Box zur Anzeige des DialogResults von der ersten TimerMessageBox
+            (new TimerMessageBox()
+            {
+                Owner = this,
+                Buttons = MessageBoxButtons.None,
+                LifeTimeMilliSeconds = 4000,
+                Icon = MessageBoxIcons.Working,
+                Caption = "DialogResult",
+                Text = firstDialogResult.ToString()
+            }).Show();
+
+            /*
+            (new TimerMessageBox()
+            {
+                Owner = this,
+                Buttons = MessageBoxButtons.None,
+                LifeTimeMilliSeconds = 4000,
+                Icon = MessageBoxIcons.Working,
+                Caption = "DialogResult",
+                Text = timerMessageBox.ShowDialog().ToString()
+            }).Show();
+            */
             // ---------------------------------------------------------
 
             // --- Variante 2 (nicht modal) ----------------------------

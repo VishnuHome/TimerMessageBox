@@ -24,12 +24,10 @@
  	<PropertyGroup>
    	<VishnuRoot>$(ProjectDir)../../..</VishnuRoot>
    	<AssemblyRoot>$(VishnuRoot)/ReadyBin/Assemblies</AssemblyRoot>
-   	<ApplicationIcon>Vishnu_Info_128.ico</ApplicationIcon>
 	</PropertyGroup>
 	<Import Project="$(ProjectDir)../../AddOn/proj/*" Condition="exists('$(ProjectDir)../../AddOn/proj')" />
 
   <ItemGroup>
-    <None Remove="dialog-information-3.png" />
     <None Remove="Media\close.png" />
     <None Remove="Media\dialog-important-2.png" />
     <None Remove="Media\dialog-information-3.png" />
@@ -38,11 +36,7 @@
     <None Remove="Media\minimize.png" />
     <None Remove="Media\process-stop-5.png" />
     <None Remove="Media\Vishnu_18.png" />
-    <None Remove="Media\Vishnu_multi.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Vishnu_Info_128.ico" />
+    <None Remove="Media\Vishnu_Info_128.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,7 +65,6 @@
 	</Choose>
 
   <ItemGroup>
-    <Resource Include="dialog-information-3.png" />
     <Resource Include="Media\close.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -92,7 +85,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\Vishnu_18.png" />
-    <Resource Include="Media\Vishnu_multi.ico">
+    <Resource Include="Media\Vishnu_Info_128.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
