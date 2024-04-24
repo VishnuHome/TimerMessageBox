@@ -74,7 +74,7 @@ namespace VishnuMessageBox
                 ?? Die<string>("Es muss ein Meldungstext mitgegeben werden.", commandLineAccess.CommandLine);
 
             string resolvedPrefix = commandLineAccess.GetStringValue(
-                "ResolvedPrefix", "Das Problem ist behoben. Die ursprüngliche Meldung war:") ?? "";
+                "ResolvedPrefix", "Nicht mehr aktuell, die ursprüngliche Meldung war:") ?? "";
 
             tmpStr = commandLineAccess.GetStringValue("MessageNewLine", null);
             string[] messageLines;
